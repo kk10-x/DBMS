@@ -1,0 +1,40 @@
+create database stu;
+use stu;
+create table student(
+	snum int,
+	sname varchar(40),
+    major  varchar(40),
+    lvl varchar(40),
+    age int,
+    primary key(snum)
+);
+create table faculty(
+	fid int primary key,
+    fname varchar(40),
+    deptid int
+);
+create table class(
+	cname varchar(40),
+    meeets_at time,
+    room varchar(40),
+    fid int,
+    primary key(cname),
+    foreign key(fid) references faculty(fid) on delete cascade
+);
+create table enrolled(
+	snum int,
+    cname varchar(40) ,
+    primary key(snum,cname),
+    foreign key(snum) references student(snum) on delete cascade,
+    foreign key(cname) references class(cname) on delete cascade
+);
+insert into student values(1,"kp","python","FR",96),
+(2,"aragovindh","baller","JR",49),
+(3,"canish","python","SR",21),
+(4,"cha","biriyani","SO",30),
+(5,"harhir","singer","SR",54),
+(6,"hsr","rapi","FR",58),
+(7,"kartoy","notes","SO",26);
+insert into faculty values (1,"kvn",1),(2,"nm",1),(3,"gs",1),(4,"ps",1),(5,"cs",1);
+insert into class values ("ada","10:30:00","c407",3),("dbms","11:30:00","c408",1),("os","15:30:00","c407",2),("la","13:00:00","c407",5),("tfcs","8:30:00","c408",4);
+insert into enrolled values (1,"dbms"),(2,"dbms"),(3,"la"),(4,"os"),(5,"tfcs"),(6,"ada"),(7,"la");
